@@ -29,7 +29,7 @@ final class Version20240112193351 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE "user" DROP CONSTRAINT FK_8D93D649D60322AC');
+        $this->addSql('ALTER TABLE "user" DROP CONSTRAINT FK_USER_ROLE');
         $this->addSql('DROP TABLE role');
         $this->addSql('DROP INDEX user__role_id__ind');
         $this->addSql('ALTER TABLE "user" DROP role_id');
