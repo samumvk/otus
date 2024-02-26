@@ -127,6 +127,7 @@ class User
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
             'login' => $this->login,
             'password' => $this->password,
             'roleName' => $this->role->getName(),
