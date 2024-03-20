@@ -26,6 +26,7 @@ class User
     private ?string $password = null;
 
     #[Assert\NotBlank]
+    #[Assert\Length(5)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -127,6 +128,7 @@ class User
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
             'login' => $this->login,
             'password' => $this->password,
             'roleName' => $this->role->getName(),
