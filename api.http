@@ -7,7 +7,7 @@ GET http://localhost:891/api/v1/user/2
 POST http://localhost:891/api/v1/user
 Content-Type: application/x-www-form-urlencoded
 
-name = User&
+name = User4444444444444444444444444444444444444444&
 password = pass&
 login = login&
 roleId = 1
@@ -16,7 +16,7 @@ roleId = 1
 POST http://localhost:891/api/v1/user/3
 Content-Type: application/x-www-form-urlencoded
 
-name = User 3&
+name = User 3355&
 password = new pass&
 login = login&
 roleId = 1

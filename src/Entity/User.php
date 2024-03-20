@@ -26,6 +26,7 @@ class User
     private ?string $password = null;
 
     #[Assert\NotBlank]
+    #[Assert\Length(5)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 

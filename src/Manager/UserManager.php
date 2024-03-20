@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserManager
 {
@@ -32,7 +33,7 @@ class UserManager
         );
     }
 
-    public function saveUser($name, $login, $password, $role, $userId = null):User
+    public function saveUser($name, $login, $password, $role, ValidatorInterface $validator, $userId = null ):User
     {
         if ($userId == null) {
             $user =  new User();
@@ -47,6 +48,9 @@ class UserManager
         $user->setRole($role);
 
         $user->setUpdatedAt(new DateTimeImmutable());
+
+        if (!$validator->validate($user))
+            return new User();
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

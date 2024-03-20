@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route(path: '/api/v1/user')]
 class UserController extends AbstractController
@@ -38,7 +39,7 @@ class UserController extends AbstractController
     }
 
     #[Route(path: '', methods: ['POST'])]
-    public function saveUser(Request $request): Response
+    public function saveUser(Request $request, ValidatorInterface $validator): Response
     {
         $name = $request->request->get('name');
         $password = $request->request->get('password');
@@ -46,13 +47,13 @@ class UserController extends AbstractController
         $roleId = $request->request->get('roleId');
         $role = $this->roleManager->getRoleById($roleId);
 
-        $user = $this->userManager->saveUser($name, $login, $password, $role);
+        $user = $this->userManager->saveUser($name, $login, $password, $role, $validator);
 
         return new JsonResponse($user->toArray(), Response::HTTP_OK);
     }
 
     #[Route(path: '/{userId}', requirements: ['user_id' => '\d+'], methods: ['POST'])]
-    public function updateUser(int $userId, Request $request): Response
+    public function updateUser(int $userId, User $user, Request $request, ValidatorInterface $validator): Response
     {
         $name = $request->request->get('name');
         $password = $request->request->get('password');
@@ -61,7 +62,9 @@ class UserController extends AbstractController
         $roleId = $request->request->get('roleId');
         $role = $this->roleManager->getRoleById($roleId);
 
-        $user = $this->userManager->saveUser($name, $login, $password, $role, $userId);
+
+
+        $user = $this->userManager->saveUser($name, $login, $password, $role, $validator, $userId);
 
         return new JsonResponse($user->toArray(), Response::HTTP_OK);
     }
